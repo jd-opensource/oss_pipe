@@ -2228,7 +2228,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "oss_pipe"
+name = "oss-pipe"
 version = "0.2.2"
 dependencies = [
  "anyhow",
