@@ -14,7 +14,7 @@ impl ObjectStorage {
                 let path = Path::new(l);
                 return Ok(path.exists());
             }
-            //对象存储，判断bucket是否存在
+            //对象存储，判断 bucket 是否存在
             ObjectStorage::OSS(ossdescription) => {
                 let client = ossdescription.gen_oss_client()?.client;
                 client

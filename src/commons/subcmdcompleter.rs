@@ -21,7 +21,7 @@ impl CommandCompleter {
         }
     }
 
-    //获取level下所有可能的子命令
+    //获取 level 下所有可能的子命令
     pub fn level_possible_cmd(&self, level: usize) -> Vec<String> {
         let mut subcmds = vec![];
         let cmds = self.subcommands.clone();
@@ -32,7 +32,7 @@ impl CommandCompleter {
         }
         return subcmds;
     }
-    //获取level下某字符串开头的子命令
+    //获取 level 下某字符串开头的子命令
     pub fn level_prefix_possible_cmd(&self, level: usize, prefix: &str) -> Vec<String> {
         let mut subcmds = vec![];
         let cmds = self.subcommands.clone();
@@ -44,7 +44,7 @@ impl CommandCompleter {
         return subcmds;
     }
 
-    //获取某level 下某subcommand的所有子命令
+    //获取某 level 下某 subcommand 的所有子命令
     pub fn level_cmd_possible_sub_cmd(&self, level: usize, cmd: String) -> Vec<String> {
         let mut subcmds = vec![];
         let cmds = self.subcommands.clone();
@@ -56,7 +56,7 @@ impl CommandCompleter {
         return subcmds;
     }
 
-    //获取某level 下某subcommand的所有prefix子命令
+    //获取某 level 下某 subcommand 的所有 prefix 子命令
     pub fn level_cmd_possible_prefix_sub_cmd(
         &self,
         level: usize,

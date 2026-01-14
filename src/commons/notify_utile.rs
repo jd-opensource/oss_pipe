@@ -64,7 +64,7 @@ pub struct NotifyWatcher {
 }
 
 // Todo
-// 新增write_stop用来替换notify 文件
+// 新增 write_stop 用来替换 notify 文件
 impl NotifyWatcher {
     // pub fn new<P: AsRef<Path>>(watched_dir: P) -> notify::Result<Self> {
     pub fn new<P: AsRef<Path>>(watched_dir: P) -> Result<Self> {

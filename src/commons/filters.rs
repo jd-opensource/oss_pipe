@@ -93,7 +93,7 @@ impl RegexFilter {
     }
 
     /// 过滤逻辑
-    // 通过筛选器，未被规则拦截返回true
+    // 通过筛选器，未被规则拦截返回 true
     pub fn passed(&self, content: &str) -> bool {
         if self.excluded(content) {
             return false;
@@ -106,7 +106,7 @@ impl RegexFilter {
         true
     }
 
-    // 内容被过滤器拦截，符合拦截条件返回true
+    // 内容被过滤器拦截，符合拦截条件返回 true
     pub fn intercepted(&self, content: &str) -> bool {
         if self.excluded(content) {
             return true;
@@ -135,7 +135,7 @@ impl Filter<&str> for RegexFilter {
 }
 
 impl LastModifyFilter {
-    // 通过筛选器，未被规则拦截返回true
+    // 通过筛选器，未被规则拦截返回 true
     pub fn passed(&self, timestamp: usize) -> bool {
         match self.filter_type {
             LastModifyFilterType::Greater => timestamp.ge(&self.timestamp),

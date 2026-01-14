@@ -2228,7 +2228,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "oss_pipe"
+name = "oss-pipe"
 version = "0.2.2"
 dependencies = [
  "anyhow",
@@ -3504,7 +3504,6 @@ dependencies = [
  "slab",
  "socket2",
  "tokio-macros",
- "tracing",
  "windows-sys 0.52.0",
 ]
 

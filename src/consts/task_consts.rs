@@ -1,7 +1,7 @@
 /// 对象序列文件名，用于记录对象列表文件的执行顺序
 pub const OBJECTS_SEQUENCE_FILE: &'static str = "list_files/list_files_sequence";
 
-/// 对象列表文件前缀，用于记录所有list文件的顺序，执行时依据文件顺序执行
+/// 对象列表文件前缀，用于记录所有 list 文件的顺序，执行时依据文件顺序执行
 pub const OBJECT_LIST_FILE_PREFIX: &'static str = "list_files/objects_list_";
 
 /// 比较任务中源端对象列表文件前缀，用于存储源端对象信息

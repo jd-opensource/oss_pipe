@@ -1,9 +1,9 @@
 # hdfs 迁移方案
 
-## hdfs搭建
+## hdfs 搭建
 hadoop 下载地址 https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
 
-### 配置hdfs
+### 配置 hdfs
 sbin/start-dfs.sh
 ```
 #!/usr/bin/env bash
@@ -63,7 +63,7 @@ etc/hadoop/hdfs-site.xml
 </configuration>
 ```
 
-### 启动hdfs
+### 启动 hdfs
 
 ```
 bin/hdfs namenode -format
@@ -75,7 +75,7 @@ sbin/start-dfs.sh
 bin/hdfs dfs -ls /
 ```
 
-## Alluxio 与 hdfs集成
+## Alluxio 与 hdfs 集成
 
 下载地址 https://www.alluxio.io/download/
 
@@ -107,4 +107,4 @@ dfs-site.xml
 integration/fuse/bin/alluxio-fuse mount /mnt/alluxio-fuse /
 
 
-## 利用 oss_pipe 迁移 hdfs上的文件
+## 利用 oss_pipe 迁移 hdfs 上的文件

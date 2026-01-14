@@ -184,7 +184,7 @@ impl CompareTask {
     }
 
     pub async fn start_compare(&self) -> Result<()> {
-        // sys_set 用于执行checkpoint、notify等辅助任务
+        // sys_set 用于执行 checkpoint、notify 等辅助任务
         let mut sys_set = JoinSet::new();
         // execut_set 用于执行任务
         let mut exec_set = JoinSet::new();
@@ -309,7 +309,7 @@ impl CompareTask {
 
         // let file_executed_lines = file_position.line_num;
         for exec_file_desc in obj_list_files.iter().skip(file_num_usize) {
-            // 按file_position seek file
+            // 按 file_position seek file
             let mut exec_file = File::open(exec_file_desc.path.as_str())
                 .context(format!("{}:{}", file!(), line!()))
                 .unwrap();
@@ -332,7 +332,7 @@ impl CompareTask {
 
                 match line {
                     Ok(key) => {
-                        // 先写入当前key 开头的 offset，然后更新list_file_position 作为下一个key的offset,待验证效果
+                        // 先写入当前 key 开头的 offset，然后更新 list_file_position 作为下一个 key 的 offset，待验证效果
                         let len = key.bytes().len() + "\n".bytes().len();
 
                         // #[cfg(target_family = "unix")]
@@ -396,7 +396,7 @@ impl CompareTask {
                     let vk = vec_keys.clone();
 
                     // Todo
-                    // 验证gen_transfer_executor 使用exec_set.spawn
+                    // 验证 gen_transfer_executor 使用 exec_set.spawn
                     let record_executer = compare.gen_compare_executor(
                         stop_mark.clone(),
                         err_occur.clone(),
@@ -417,7 +417,7 @@ impl CompareTask {
                         };
                     });
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -476,7 +476,7 @@ impl CompareTask {
     /// 3. 显示对象列表文件的统计信息
     ///
     /// # 功能详述
-    /// - 清理meta目录中的旧文件
+    /// - 清理 meta 目录中的旧文件
     /// - 根据源存储生成多个对象列表文件
     /// - 创建包含任务开始时间戳的检查点文件
     /// - 以表格形式展示生成的列表文件信息（路径、大小、行数）
@@ -495,7 +495,7 @@ impl CompareTask {
         log::info!("generate objects list files beging");
         let pd = prompt_processbar("Generating object list ...");
         // 清理 meta 目录
-        // 重新生成object list file
+        // 重新生成 object list file
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .context(format!("{}:{}", file!(), line!()))?;
@@ -548,7 +548,7 @@ impl CompareTask {
         Ok(())
     }
 
-    // 根据sequence_file获取所有对象列表的描述列表
+    // 根据 sequence_file 获取所有对象列表的描述列表
     pub fn gen_source_object_list_file_desc(&self) -> Result<Vec<FileDescription>> {
         let sequence_file_path =
             gen_file_path(&self.attributes.meta_dir, OBJECTS_SEQUENCE_FILE, "");

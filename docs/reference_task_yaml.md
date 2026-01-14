@@ -3,7 +3,7 @@
 ## Transfer Task
 
 ```yaml
-# 任务id，自动生成，非必填
+# 任务 id，自动生成，非必填
 task_id: '7143076600257581057'
 # 任务名称，非必填
 name: transfer local to oss
@@ -70,7 +70,7 @@ task_desc:
 ## compare task
 
 ```yaml
-# 任务id，自动生成，非必填
+# 任务 id，自动生成，非必填
 task_id: '7143092364209426433'
 # 任务名称，非必填
 name: compare task

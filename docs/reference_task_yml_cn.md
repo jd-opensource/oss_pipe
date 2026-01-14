@@ -2,17 +2,17 @@
 
 oss_pipe 通过 yml 格式描述需要执行的任务
 
-## yaml描述文件基本结构
+## yaml 描述文件基本结构
 
 ### 描述文件概述
 任务描述主要分为三个主要部分
-- type、task_id、name，用于定义任务的基本信息，type为类型描述，目前支持transfer 和compare两类任务。
-- source、targe用于描述源于目标存储信息，可以是本地存储（目录）或对象存储
+- type、task_id、name，用于定义任务的基本信息，type 为类型描述，目前支持 transfer 和 compare 两类任务。
+- source、targe 用于描述源于目标存储信息，可以是本地存储（目录）或对象存储
 - attributes，用于描述任务属性，包括并发数、过滤器等信息
 
 基本属性描述
-- type: 描述任务类型，目前支持transfer 和compare两类任务
-- task_id：描述任务唯一id以及任务名称，
+- type: 描述任务类型，目前支持 transfer 和 compare 两类任务
+- task_id：描述任务唯一 id 以及任务名称，
 - name：任务名称，使用者自定义
 - source: 描述远端存储类别
 - target: 描述目标端存储类别
@@ -89,7 +89,7 @@ attributes:
 	   <td>task_id</td>
 	   <td>String</td>
        <td>否</td>
-       <td>任务id，为空时由系统生成</td>
+       <td>任务 id，为空时由系统生成</td>
        <td>task_id: '7219552894540976129'</td>
 	</tr>
     <tr>
@@ -110,7 +110,7 @@ attributes:
 	   <td>source.provider</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，描述对象存储提供商。值为JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过oss_pipe parameters provider 查询</td>
+       <td>当源为对象存储时，描述对象存储提供商。值为 JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过 oss_pipe parameters provider 查询</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;provider: AWS</td>
 	</tr>
@@ -134,7 +134,7 @@ attributes:
 	   <td>source.endpoint</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储endpoint</td>
+       <td>当源为对象存储时，对象存储 endpoint</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;endpoint: http://oss-cn-beijing.aliyuncs.com</td>
 	</tr>
@@ -142,7 +142,7 @@ attributes:
 	   <td>source.region</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储region</td>
+       <td>当源为对象存储时，对象存储 region</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;region: cn-north-1</td>
 	</tr>
@@ -150,7 +150,7 @@ attributes:
 	   <td>source.bucket</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储bucket</td>
+       <td>当源为对象存储时，对象存储 bucket</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;bucket: bucket_name</td>
 	</tr>
@@ -158,7 +158,7 @@ attributes:
 	   <td>source.prefix</td>
 	   <td>String</td>
        <td>否</td>
-       <td>当源为对象存储时，指定prefix时，只对该prefix下的对象进行操作</td>
+       <td>当源为对象存储时，指定 prefix 时，只对该 prefix 下的对象进行操作</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;prefix: source/test/prefix/</td>
 	</tr>
@@ -166,7 +166,7 @@ attributes:
 	   <td>source.request_style</td>
 	   <td>String</td>
        <td>否</td>
-       <td>对象存储url编码格式,取值：PathStyle/VirtualHostedStyle,默认VirtualHostedStyle</td>
+       <td>对象存储 url 编码格式，取值：PathStyle/VirtualHostedStyle，默认 VirtualHostedStyle</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;request_style: VirtualHostedStyle</td>
 	</tr>
@@ -181,7 +181,7 @@ attributes:
 	   <td>target.provider</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，描述对象存储提供商。值为JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过oss_pipe parameters provider 查询</td>
+       <td>当目标为对象存储时，描述对象存储提供商。值为 JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过 oss_pipe parameters provider 查询</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;provider: AWS</td>
 	</tr>
@@ -205,7 +205,7 @@ attributes:
 	   <td>target.endpoint</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储endpoint</td>
+       <td>当目标为对象存储时，对象存储 endpoint</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;endpoint: http://oss-cn-beijing.aliyuncs.com</td>
 	</tr>
@@ -213,7 +213,7 @@ attributes:
 	   <td>target.region</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储region</td>
+       <td>当目标为对象存储时，对象存储 region</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;region: cn-north-1</td>
 	</tr>
@@ -221,7 +221,7 @@ attributes:
 	   <td>target.bucket</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储bucket</td>
+       <td>当目标为对象存储时，对象存储 bucket</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;bucket: bucket_name</td>
 	</tr>
@@ -229,7 +229,7 @@ attributes:
 	   <td>target.prefix</td>
 	   <td>String</td>
        <td>否</td>
-       <td>当目标为对象存储时，指定prefix时，目标添加 prefix，例如源key为a，指定prefix 为 p/时，a在目标的key为p/a</td>
+       <td>当目标为对象存储时，指定 prefix 时，目标添加 prefix，例如源 key 为 a，指定 prefix 为 p/时，a 在目标的 key 为 p/a</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;prefix: target/prefix/</td>
 	</tr>
@@ -237,7 +237,7 @@ attributes:
 	   <td>target.request_style</td>
 	   <td>String</td>
        <td>否</td>
-       <td>对象存储url编码格式,取值：PathStyle/VirtualHostedStyle,默认VirtualHostedStyle</td>
+       <td>对象存储 url 编码格式，取值：PathStyle/VirtualHostedStyle，默认 VirtualHostedStyle</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;request_style: VirtualHostedStyle</td>
 	</tr>
@@ -277,7 +277,7 @@ attributes:
 	   <td>attributes.target_exists_skip</td>
 	   <td>bool</td>
        <td>否</td>
-       <td>任务属性，当target存在同名对象时不传送对象，默认值为false</td>
+       <td>任务属性，当 target 存在同名对象时不传送对象，默认值为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;target_exists_skip: false</td>
 	</tr>
@@ -285,7 +285,7 @@ attributes:
 	   <td>attributes.start_from_checkpoint</td>
 	   <td>bool</td>
        <td>否</td>
-       <td>任务属性，是否从checkpoint开始执行任务，用于任务中断后接续执行，默认值false</td>
+       <td>任务属性，是否从 checkpoint 开始执行任务，用于任务中断后接续执行，默认值 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;start_from_checkpoint: true</td>
 	</tr>
@@ -371,7 +371,7 @@ attributes:
 	   <td>attributes.objects_list_batch</td>
 	   <td>i32</td>
        <td>否</td>
-       <td>获取传输列表时，每批次获取对象的数量，默认值512，当源为对象存储时最大1000</td>
+       <td>获取传输列表时，每批次获取对象的数量，默认值 512，当源为对象存储时最大 1000</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;objects_list_batch: 512</td>
 	</tr>
@@ -468,7 +468,7 @@ attributes:
 	   <td>task_id</td>
 	   <td>String</td>
        <td>否</td>
-       <td>任务id，为空时由系统生成</td>
+       <td>任务 id，为空时由系统生成</td>
        <td>task_id: '7219552894540976129'</td>
 	</tr>
     <tr>
@@ -489,7 +489,7 @@ attributes:
 	   <td>source.provider</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，描述对象存储提供商。值为JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过oss_pipe parameters provider 查询</td>
+       <td>当源为对象存储时，描述对象存储提供商。值为 JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过 oss_pipe parameters provider 查询</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;provider: AWS</td>
 	</tr>
@@ -513,7 +513,7 @@ attributes:
 	   <td>source.endpoint</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储endpoint</td>
+       <td>当源为对象存储时，对象存储 endpoint</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;endpoint: http://oss-cn-beijing.aliyuncs.com</td>
 	</tr>
@@ -521,7 +521,7 @@ attributes:
 	   <td>source.region</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储region</td>
+       <td>当源为对象存储时，对象存储 region</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;region: cn-north-1</td>
 	</tr>
@@ -529,7 +529,7 @@ attributes:
 	   <td>source.bucket</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当源为对象存储时，对象存储bucket</td>
+       <td>当源为对象存储时，对象存储 bucket</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;bucket: bucket_name</td>
 	</tr>
@@ -537,7 +537,7 @@ attributes:
 	   <td>source.prefix</td>
 	   <td>String</td>
        <td>否</td>
-       <td>当源为对象存储时，指定prefix时，只对该prefix下的对象进行操作</td>
+       <td>当源为对象存储时，指定 prefix 时，只对该 prefix 下的对象进行操作</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;prefix: source/test/prefix/</td>
 	</tr>
@@ -545,7 +545,7 @@ attributes:
 	   <td>source.request_style</td>
 	   <td>String</td>
        <td>否</td>
-       <td>对象存储url编码格式,取值：PathStyle/VirtualHostedStyle,默认VirtualHostedStyle</td>
+       <td>对象存储 url 编码格式，取值：PathStyle/VirtualHostedStyle，默认 VirtualHostedStyle</td>
        <td>source:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;request_style: VirtualHostedStyle</td>
 	</tr>
@@ -560,7 +560,7 @@ attributes:
 	   <td>target.provider</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，描述对象存储提供商。值为JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过oss_pipe parameters provider 查询</td>
+       <td>当目标为对象存储时，描述对象存储提供商。值为 JD/JRSS/ALI/AWS/HUAWEI/COS/MINIO，支持的对象存储提供商通过 oss_pipe parameters provider 查询</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;provider: AWS</td>
 	</tr>
@@ -584,7 +584,7 @@ attributes:
 	   <td>target.endpoint</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储endpoint</td>
+       <td>当目标为对象存储时，对象存储 endpoint</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;endpoint: http://oss-cn-beijing.aliyuncs.com</td>
 	</tr>
@@ -592,7 +592,7 @@ attributes:
 	   <td>target.region</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储region</td>
+       <td>当目标为对象存储时，对象存储 region</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;region: cn-north-1</td>
 	</tr>
@@ -600,7 +600,7 @@ attributes:
 	   <td>target.bucket</td>
 	   <td>String</td>
        <td>是</td>
-       <td>当目标为对象存储时，对象存储bucket</td>
+       <td>当目标为对象存储时，对象存储 bucket</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;bucket: bucket_name</td>
 	</tr>
@@ -608,7 +608,7 @@ attributes:
 	   <td>target.prefix</td>
 	   <td>String</td>
        <td>否</td>
-       <td>当目标为对象存储时，指定prefix时，目标添加 prefix，例如源key为a，指定prefix 为 p/时，a在目标的key为p/a</td>
+       <td>当目标为对象存储时，指定 prefix 时，目标添加 prefix，例如源 key 为 a，指定 prefix 为 p/时，a 在目标的 key 为 p/a</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;prefix: target/prefix/</td>
 	</tr>
@@ -616,7 +616,7 @@ attributes:
 	   <td>target.request_style</td>
 	   <td>String</td>
        <td>否</td>
-       <td>对象存储url编码格式,取值：PathStyle/VirtualHostedStyle,默认VirtualHostedStyle</td>
+       <td>对象存储 url 编码格式，取值：PathStyle/VirtualHostedStyle，默认 VirtualHostedStyle</td>
        <td>target:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;request_style: VirtualHostedStyle</td>
 	</tr>
@@ -624,7 +624,7 @@ attributes:
 	   <td>check_option.check_content_length</td>
 	   <td>usize</td>
        <td>否</td>
-       <td>校验属性，是否校验内容长度，默认为false</td>
+       <td>校验属性，是否校验内容长度，默认为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;check_content_length: false</td>
 	</tr>
@@ -632,7 +632,7 @@ attributes:
     	<td>check_option.check_expire</td>
 	   <td>usize</td>
        <td>否</td>
-       <td>校验属性，是否校验过期时间，当源和目标均为对象存储时起作用，默认为false</td>
+       <td>校验属性，是否校验过期时间，当源和目标均为对象存储时起作用，默认为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;check_expire: false</td>
 	</tr>
@@ -640,7 +640,7 @@ attributes:
     	<td>check_option.check_meta_data</td>
 	   <td>usize</td>
        <td>否</td>
-       <td>是否校验meta data，当源和目标均为对象存储时生效，默认为false</td>
+       <td>是否校验 meta data，当源和目标均为对象存储时生效，默认为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;check_meta_data: false</td>
 	</tr>   
@@ -648,7 +648,7 @@ attributes:
     	<td>check_option.check_content</td>
 	   <td>usize</td>
        <td>否</td>
-       <td>是否校验文件内容，开启该配置会对文件内容按字节进行校验，流量消耗大，慎重开启，默认为false</td>
+       <td>是否校验文件内容，开启该配置会对文件内容按字节进行校验，流量消耗大，慎重开启，默认为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;check_content: false</td>
 	</tr>     
@@ -688,7 +688,7 @@ attributes:
 	   <td>attributes.target_exists_skip</td>
 	   <td>bool</td>
        <td>否</td>
-       <td>任务属性，当target存在同名对象时不传送对象，默认值为false</td>
+       <td>任务属性，当 target 存在同名对象时不传送对象，默认值为 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;target_exists_skip: false</td>
 	</tr>
@@ -696,7 +696,7 @@ attributes:
 	   <td>attributes.start_from_checkpoint</td>
 	   <td>bool</td>
        <td>否</td>
-       <td>任务属性，是否从checkpoint开始执行任务，用于任务中断后接续执行，默认值false</td>
+       <td>任务属性，是否从 checkpoint 开始执行任务，用于任务中断后接续执行，默认值 false</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;start_from_checkpoint: true</td>
 	</tr>
@@ -765,7 +765,7 @@ attributes:
 	   <td>attributes.exprirs_diff_scope</td>
 	   <td>i32</td>
        <td>否</td>
-       <td>当校验过期时间时由于服务器间的时间差异需要一定冗余，既相差在一定时间内既为校验成功，默认相差10秒以内</td>
+       <td>当校验过期时间时由于服务器间的时间差异需要一定冗余，既相差在一定时间内既为校验成功，默认相差 10 秒以内</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;exprirs_diff_scope: 10</td>
 	</tr>
@@ -775,7 +775,7 @@ attributes:
 	   <td>attributes.objects_list_batch</td>
 	   <td>i32</td>
        <td>否</td>
-       <td>获取传输列表时，每批次获取对象的数量，默认值512，当源为对象存储时最大1000</td>
+       <td>获取传输列表时，每批次获取对象的数量，默认值 512，当源为对象存储时最大 1000</td>
        <td>attributes:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;objects_list_batch: 512</td>
 	</tr>

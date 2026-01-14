@@ -63,7 +63,7 @@ impl Task {
             }
             // 处理删除存储桶任务
             Task::DeleteBucket(truncate) => {
-                // 记录删除任务开始信息，包含任务的YAML格式配置
+                // 记录删除任务开始信息，包含任务的 YAML 格式配置
                 log::info!(
                     "Truncate Task Start:\n{}",
                     struct_to_yaml_string(truncate).unwrap()
@@ -88,7 +88,7 @@ impl Task {
             }
             // 处理数据比较任务
             Task::Compare(compare) => {
-                // 记录比较任务开始信息，包含任务的YAML格式配置
+                // 记录比较任务开始信息，包含任务的 YAML 格式配置
                 log::info!(
                     "Compare Task Start:\n{}",
                     struct_to_yaml_string(compare).unwrap()

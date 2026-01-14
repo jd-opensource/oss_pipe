@@ -102,7 +102,7 @@ where
 /// * `chunk_size` - 分块大小
 ///
 /// # 返回值
-/// 复制成功返回Ok(())，失败返回错误
+/// 复制成功返回 Ok(())，失败返回错误
 pub fn copy_file(
     source: &str,
     target: &str,
@@ -141,7 +141,7 @@ pub fn copy_file(
 /// * `chunk_size` - 每次读取的块大小
 ///
 /// # 返回值
-/// 复制成功返回Ok(())，失败返回错误
+/// 复制成功返回 Ok(())，失败返回错误
 pub fn multi_parts_copy_file(source: &str, target: &str, chunk_size: usize) -> Result<()> {
     let mut f_source = OpenOptions::new().read(true).open(source)?;
     let target_file_builder = FileOperationBuilder::new(target).with_parent_creation();
@@ -363,7 +363,7 @@ pub fn scan_folder_files_to_multi_files(
         .with_parent_creation();
     let mut sequence_line_writer = sequence_file_builder.build_line_writer()?;
 
-    // 创建object list 文件
+    // 创建 object list 文件
     let mut file_subfix = "".to_string();
     file_subfix.push_str(&file_num.to_string());
 
@@ -463,7 +463,7 @@ pub fn scan_folder_files_to_multi_files(
 /// * `content` - 要追加的内容
 ///
 /// # 返回值
-/// 追加成功返回Ok(())，失败返回错误
+/// 追加成功返回 Ok(())，失败返回错误
 pub fn append_line_to_file(file_name: &str, content: &str) -> Result<()> {
     let append_file = OpenOptions::new()
         .create(true)
@@ -484,7 +484,7 @@ pub fn append_line_to_file(file_name: &str, content: &str) -> Result<()> {
 /// * `file_name` - 文件路径
 ///
 /// # 返回值
-/// 生成成功返回Ok(())，失败返回错误
+/// 生成成功返回 Ok(())，失败返回错误
 pub fn generate_file(file_size: usize, chunk_size: usize, file_name: &str) -> Result<()> {
     let str_len = file_size / chunk_size;
     let remainder = file_size % chunk_size;
@@ -526,7 +526,7 @@ pub fn generate_file(file_size: usize, chunk_size: usize, file_name: &str) -> Re
 /// * `file_name` - 文件路径
 ///
 /// # 返回值
-/// 填充成功返回Ok(())，失败返回错误
+/// 填充成功返回 Ok(())，失败返回错误
 pub fn fill_file_with_zero(file_size: usize, chunk_size: usize, file_name: &str) -> Result<()> {
     let batch = file_size / chunk_size;
     let remainder = file_size % chunk_size;
@@ -567,7 +567,7 @@ pub fn fill_file_with_zero(file_size: usize, chunk_size: usize, file_name: &str)
 /// * `chunk_size` - 分块大小
 ///
 /// # 返回值
-/// 合并成功返回Ok(())，失败返回错误
+/// 合并成功返回 Ok(())，失败返回错误
 pub fn merge_file<P: AsRef<Path>>(file: P, merge_to: P, chunk_size: usize) -> Result<()> {
     let mut f = OpenOptions::new().read(true).open(file)?;
     let mut merge_to = OpenOptions::new()
@@ -599,7 +599,7 @@ pub fn merge_file<P: AsRef<Path>>(file: P, merge_to: P, chunk_size: usize) -> Re
 /// * `file_name` - 文件路径
 ///
 /// # 返回值
-/// 生成成功返回Ok(())，失败返回错误
+/// 生成成功返回 Ok(())，失败返回错误
 pub fn generate_line_file(line_base_size: usize, lines: usize, file_name: &str) -> Result<()> {
     // 生成文件目录
     let store_path = Path::new(file_name);
@@ -638,7 +638,7 @@ pub fn generate_line_file(line_base_size: usize, lines: usize, file_name: &str) 
 /// * `file_quantity` - 文件数量
 ///
 /// # 返回值
-/// 生成成功返回Ok(())，失败返回错误
+/// 生成成功返回 Ok(())，失败返回错误
 pub fn generate_files(
     dir: &str,
     file_prefix_len: usize,
@@ -763,7 +763,7 @@ pub fn gen_file_part_plan(file_path: &str, chunk_size: usize) -> Result<Vec<File
 /// * `file_path` - 文件路径
 ///
 /// # 返回值
-/// 创建成功返回Ok(())，失败返回错误
+/// 创建成功返回 Ok(())，失败返回错误
 pub fn create_parent_dir<P: AsRef<Path>>(file_path: P) -> Result<()> {
     // if let Some(p) = Path::new(file_path).parent() {
     if let Some(p) = file_path.as_ref().parent() {
@@ -797,7 +797,7 @@ pub fn count_file_lines<P: AsRef<Path>>(filename: P) -> Result<u64> {
     Ok(reader.lines().count() as u64)
 }
 
-/// 根据列表序列文件，生成所有列表文件的FileDescription
+/// 根据列表序列文件，生成所有列表文件的 FileDescription
 ///
 /// # 参数
 /// * `sequence_file` - 序列文件路径

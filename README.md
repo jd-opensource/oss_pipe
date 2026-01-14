@@ -1,48 +1,50 @@
 # OSS PIPE
 
-oss_pipe 是rust编写的文件迁移工具，旨在支撑大规模的文件迁移场景。相比java 或 golang 构建的同类型产品，借助rust语言的优势，oss_pipe具备无GC、高并发、部署便利、OOM风险低等优势。
+oss_pipe 是 rust 编写的文件迁移工具，旨在支撑大规模的文件迁移场景。相比 java 或 golang 构建的同类型产品，借助 rust
+语言的优势，oss_pipe 具备无 GC、高并发、部署便利、OOM 风险低等优势。
 
 ## 主要功能
 
-### transfer 
-文件迁移，包括oss 间文件迁移和本地到oss的文件迁移
+### transfer
+
+文件迁移，包括 oss 间文件迁移和本地到 oss 的文件迁移
 
 * 主要功能
-  * 全量迁移
-  * 存量迁移
-  * 增量迁移
-  * 断点续传
-  * 大文件拆分上传
-  * 正则表达式过滤
-  * 线程数与上传快大小组合控制带宽
+    * 全量迁移
+    * 存量迁移
+    * 增量迁移
+    * 断点续传
+    * 大文件拆分上传
+    * 正则表达式过滤
+    * 线程数与上传快大小组合控制带宽
 
 * 存储适配及支持列表
-  * 京东云对象存储
-  * 阿里云对象存储
-  * 腾讯云对象存储
-  * 华为云对象存储
-  * AWS对象存储
-  * Minio
-  * 本地
+    * 京东云对象存储
+    * 阿里云对象存储
+    * 腾讯云对象存储
+    * 华为云对象存储
+    * AWS 对象存储
+    * Minio
+    * 本地
 
-### compare 
+### compare
+
 文件校验，检查源文件与迁移完成后目标文件的差异
 
 * 主要功能
-  * 存在性校验
-  * 文件长度校验
-  * meta数据校验
-  * 过期时间校验
-  * 全字节流校验
-
+    * 存在性校验
+    * 文件长度校验
+    * meta 数据校验
+    * 过期时间校验
+    * 全字节流校验
 
 ## Getting Stated
 
 ### How to build
 
-* 安装rust编译环境
+* 安装 rust 编译环境
 
-```rust
+```shell
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
@@ -114,11 +116,11 @@ task_desc:
     large_file_size: 50m
     multi_part_chunk: 10m
     exclude:
-    - test/t3/*
-    - test/t4/*
+      - test/t3/*
+      - test/t4/*
     include:
-    - test/t1/*
-    - test/t2/*
+      - test/t1/*
+      - test/t2/*
     continuous: false
     transfer_type: Stock
     last_modify_filter:
@@ -126,7 +128,8 @@ task_desc:
       timestamp: 1703039867
 ```
 
-修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版。parameters 支持参数查询，包括支持的 provider 以及 任务类型
+修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版。parameters 支持参数查询，包括支持的
+provider 以及 任务类型
 
 ### 执行任务
 
@@ -139,7 +142,6 @@ oss_pipe task exec filepath/task.yml
 ## 同步任务流程
 
 ![同步任务流程](./docs/images/同步流程图-v3.png)
-
 
 更多细节请参考[参考手册](./docs/reference_cn.md)
 

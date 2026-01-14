@@ -87,11 +87,11 @@ impl TransferTask {
 
     pub async fn start_transfer(&self) -> Result<()> {
         /// ToDo 重构任务执行结构
-        /// 三个阶段init、stock、increment
+        /// 三个阶段 init、stock、increment
         /// 1. init 阶段：初始化任务，检查任务状态，恢复任务进度，创建任务检查点文件
         /// 2. stock 阶段：存量数据迁移，迁移存量数据，迁移完成后，更新任务检查点文件
         /// 3. increment 阶段：增量数据迁移，迁移增量数据，迁移完成后，更新任务检查点文件
-        // sys_set 用于执行checkpoint、notify等辅助任务
+        // sys_set 用于执行 checkpoint、notify 等辅助任务
         let mut sys_set = JoinSet::new();
         // execut_set 用于执行任务
         let mut exec_set = JoinSet::new();
@@ -115,7 +115,7 @@ impl TransferTask {
         // assistant.check_point_path = checkpoint_file.clone();
         // let increment_assistant = Arc::new(Mutex::new(assistant));
 
-        // 任务启动前清理未执行完成的target 端 multi part
+        // 任务启动前清理未执行完成的 target 端 multi part
         self.target.oss_clean_multi_parts().await?;
 
         // 判断是否执行任务初始化
@@ -125,7 +125,7 @@ impl TransferTask {
 
         let checkpoint = get_task_checkpoint(&checkpoint_file)?;
 
-        // 从自定义列表同步，只同步列表中的key
+        // 从自定义列表同步，只同步列表中的 key
         if let Some(lists) = &self.attributes.objects_list_files {
             // 获取文件列表以及当前执行位置
             // let obj_list_files = self.get_specified_list_files_and_position(lists)?;
@@ -160,7 +160,7 @@ impl TransferTask {
             self.get_objects_list_files_desc()
                 .context(format!("{}:{}", file!(), line!()))?;
 
-        // 全量同步时: 执行增量助理
+        // 全量同步时：执行增量助理
         let mut notify_file_path = None;
 
         // 增量或全量同步时，提前启动 increment_assistant 用于记录 notify 文件
@@ -181,7 +181,7 @@ impl TransferTask {
             .await;
         }
 
-        // 根据stage判断是否执行存量数据迁移
+        // 根据 stage 判断是否执行存量数据迁移
         if matches!(checkpoint.task_stage, TaskStage::Stock) {
             // 存量数据迁移完成，执行增量数据迁移
             self.execute_stock_transfer(
@@ -219,7 +219,7 @@ impl TransferTask {
             return Err(anyhow!("error occur")).context(format!("{}:{}", file!(), line!()));
         }
 
-        // 将对象文件列表最后一个文件的信息写入checkpoint，代表存量任务结束
+        // 将对象文件列表最后一个文件的信息写入 checkpoint，代表存量任务结束
         if let Some(file_desc) = obj_list_files.last() {
             let mut checkpoint = get_task_checkpoint(checkpoint_file.as_str())?;
             checkpoint.executing_file = file_desc.clone();
@@ -232,7 +232,7 @@ impl TransferTask {
         let mut checkpoint = get_task_checkpoint(checkpoint_file.as_str())?;
 
         checkpoint.file_for_notify = notify_file_path.clone();
-        // 设置存量文件executed_file_position为文件执行完成的位置
+        // 设置存量文件 executed_file_position 为文件执行完成的位置
 
         if let Err(e) = checkpoint.save_to(checkpoint_file.as_str()) {
             log::error!("{:?}", e);
@@ -240,7 +240,7 @@ impl TransferTask {
 
         // 执行增量逻辑
         if self.attributes.transfer_type.is_full() || self.attributes.transfer_type.is_increment() {
-            //更新checkpoint 更改stage
+            //更新 checkpoint 更改 stage
             let mut checkpoint = get_task_checkpoint(checkpoint_file.as_str())?;
 
             if !matches!(checkpoint.task_stage, TaskStage::Increment) {
@@ -288,7 +288,7 @@ impl TransferTask {
     /// 3. 显示对象列表文件的统计信息
     ///
     /// # 功能详述
-    /// - 清理meta目录中的旧文件
+    /// - 清理 meta 目录中的旧文件
     /// - 根据源存储生成多个对象列表文件
     /// - 创建包含任务开始时间戳的检查点文件
     /// - 以表格形式展示生成的列表文件信息（路径、大小、行数）
@@ -307,7 +307,7 @@ impl TransferTask {
         let pd = prompt_processbar("Generating object list ...");
 
         // 清理 meta 目录
-        // 重新生成object list file
+        // 重新生成 object list file
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .context(format!("{}:{}", file!(), line!()))?;
@@ -367,14 +367,14 @@ impl TransferTask {
     ///
     /// 此函数负责启动增量传输前的准备工作，包括：
     /// 1. 启动增量前置任务，用于监听本地目录变化或记录时间戳
-    /// 2. 当源存储为本地存储时，获取notify文件路径用于监听文件变化
-    /// 3. 启动心跳任务，确保notify机制能够正常工作和结束
+    /// 2. 当源存储为本地存储时，获取 notify 文件路径用于监听文件变化
+    /// 3. 启动心跳任务，确保 notify 机制能够正常工作和结束
     ///
     /// # 参数
     /// * `sys_set` - 系统任务集合，用于管理后台任务
     /// * `notify_stop_mark` - 停止标记，用于控制任务停止
     /// * `err_occur` - 错误发生标记，用于标识是否有错误发生
-    /// * `file_for_notify` - notify文件路径，用于存储监听文件的路径
+    /// * `file_for_notify` - notify 文件路径，用于存储监听文件的路径
     /// * `increment_assistant` - 增量助手，用于管理增量传输相关状态
     async fn increment_prelude(
         &self,
@@ -389,7 +389,7 @@ impl TransferTask {
         let n_s_m = notify_stop_mark.clone();
         let e_o = err_occur.clone();
 
-        // 启动increment_prelude 监听增量时的本地目录，或记录间戳
+        // 启动 increment_prelude 监听增量时的本地目录，或记录间戳
         let notify = file_for_notify.clone();
         // sys_set.spawn(async move {
         //     if let Err(e) = task_increment_prelude
@@ -409,7 +409,7 @@ impl TransferTask {
                 return;
             }
         });
-        // 当源存储为本地时，获取notify文件
+        // 当源存储为本地时，获取 notify 文件
         if let ObjectStorage::Local(dir) = self.source.clone() {
             // while file_for_notify.is_none() {
             //     let lock = increment_assistant.lock().await;
@@ -451,7 +451,7 @@ impl TransferTask {
         file_for_notify: Option<String>,
     ) -> Result<()> {
         let check_point = get_task_checkpoint(&check_point_file)?;
-        // 启动checkpoint记录线程
+        // 启动 checkpoint 记录线程
         let stock_status_saver = TaskStatusSaver {
             check_point_path: check_point_file.clone(),
             executed_file: check_point.executing_file,
@@ -685,7 +685,7 @@ impl TransferTask {
         Ok(record_list_files)
     }
 
-    // 根据sequence_file获取所有对象列表的描述列表
+    // 根据 sequence_file 获取所有对象列表的描述列表
     pub fn get_objects_list_files_desc(&self) -> Result<Vec<FileDescription>> {
         let sequence_file_path =
             gen_file_path(&self.attributes.meta_dir, OBJECTS_SEQUENCE_FILE, "");
@@ -746,7 +746,7 @@ impl TransferTask {
         let mut file_position = file_position.clone();
 
         for exec_file_desc in obj_list_files.iter().skip(file_num_usize) {
-            // 按file_position seek file
+            // 按 file_position seek file
             let mut exec_file = File::open(exec_file_desc.path.as_str())
                 .map_err(|e| {
                     shared_marks
@@ -797,7 +797,7 @@ impl TransferTask {
 
                 match line {
                     Ok(key) => {
-                        // 先写入当前key 开头的 offset，然后更新list_file_position 作为下一个key的offset,待验证效果
+                        // 先写入当前 key 开头的 offset，然后更新 list_file_position 作为下一个 key 的 offset，待验证效果
                         let len = key.bytes().len() + "\n".bytes().len();
 
                         // #[cfg(target_family = "unix")]
@@ -863,7 +863,7 @@ impl TransferTask {
                     let vk = vec_keys.clone();
 
                     // Todo
-                    // 验证gen_transfer_executor 使用exec_set.spawn
+                    // 验证 gen_transfer_executor 使用 exec_set.spawn
                     let record_executer = task_stock.gen_transfer_executor(
                         shared_marks.execute_stop_mark.clone(),
                         shared_marks.task_err_occur.clone(),
@@ -882,7 +882,7 @@ impl TransferTask {
                         };
                     });
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -896,7 +896,7 @@ impl TransferTask {
         Ok(())
     }
 
-    // 增量场景下执行record_descriptions 文件
+    // 增量场景下执行 record_descriptions 文件
     async fn exec_record_descriptions_file(
         &self,
         stop_mark: Arc<AtomicBool>,
@@ -910,7 +910,7 @@ impl TransferTask {
         let task_modify = self.gen_transfer_actions();
         let mut vec_keys: Vec<RecordOption> = vec![];
 
-        // 按列表传输object from source to target
+        // 按列表传输 object from source to target
         let total_lines = executing_file.total_lines;
         let lines: io::Lines<io::BufReader<File>> = io::BufReader::new(records_desc_file).lines();
 
@@ -957,7 +957,7 @@ impl TransferTask {
                     };
                 });
 
-                // 清理临时key vec
+                // 清理临时 key vec
                 vec_keys.clear();
             }
         }

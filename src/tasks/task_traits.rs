@@ -15,8 +15,8 @@ use tokio::{sync::Semaphore, task::JoinSet};
 pub trait TransferTaskActions {
     async fn analyze_source(&self) -> Result<DashMap<String, i128>>;
 
-    // Todo 新增skipe_error 逻辑，用于跳过已记录的错误
-    // 替换 error_record_retry，主要逻辑，当transfer过程出现错误时，核对记录是否被记录，若未被记录，则记录错误，并返回错误，停止任务
+    // Todo 新增 skipe_error 逻辑，用于跳过已记录的错误
+    // 替换 error_record_retry，主要逻辑，当 transfer 过程出现错误时，核对记录是否被记录，若未被记录，则记录错误，并返回错误，停止任务
     // 若已被记录，则跳过错误，继续执行
 
     // 错误记录重试
@@ -38,15 +38,15 @@ pub trait TransferTaskActions {
     // 生成对象列表
     async fn list_objects_to_multi_files(&self, meta_dir: &str) -> Result<Vec<FileDescription>>;
 
-    // 以target为基础，抓取变动object
-    // 扫描target storage，source 不存在为removed object
-    // 按时间戳扫描source storage，大于指定时间戳的object 为 removed objects
+    // 以 target 为基础，抓取变动 object
+    // 扫描 target storage，source 不存在为 removed object
+    // 按时间戳扫描 source storage，大于指定时间戳的 object 为 removed objects
     async fn changed_object_capture_based_target(
         &self,
         timestamp: usize,
     ) -> Result<FileDescription>;
 
-    // 执行增量前置操作，例如启动notify线程，记录last modify 时间戳等
+    // 执行增量前置操作，例如启动 notify 线程，记录 last modify 时间戳等
     async fn increment_prelude(
         &self,
         stop_mark: Arc<AtomicBool>,

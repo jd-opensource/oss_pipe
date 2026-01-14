@@ -58,7 +58,7 @@ impl TaskDeleteBucket {
 
         let o_d = oss_d.clone();
 
-        // sys_set 用于执行checkpoint、notify等辅助任务
+        // sys_set 用于执行 checkpoint、notify 等辅助任务
         let mut sys_set = JoinSet::new();
         // execut_set 用于执行任务
         let mut execut_set = JoinSet::new();
@@ -81,7 +81,7 @@ impl TaskDeleteBucket {
         let mut vec_record = vec![];
 
         for exec_file_desc in obj_list_files.iter().skip(file_num_usize) {
-            // 按file_position seek file
+            // 按 file_position seek file
             let seek_offset = TryInto::<u64>::try_into(file_position.offset)
                 .context(format!("{}:{}", file!(), line!()))
                 .unwrap();
@@ -273,7 +273,7 @@ impl DeleteBucketExecutor {
         let source_client = self.source.gen_oss_client()?;
         let s_c = Arc::new(source_client);
 
-        // 插入文件offset记录
+        // 插入文件 offset 记录
         self.offset_map.insert(
             offset_key.clone(),
             FilePosition {

@@ -69,14 +69,14 @@
     Ok(())
 ```
 
-aws_sigv4::http_request::canonical_request::CanonicalRequest::payload_hash 占用70%
-aws rust sdk runtime_plugins 字段为私有，不可变更，提issue
+aws_sigv4::http_request::canonical_request::CanonicalRequest::payload_hash 占用 70%
+aws rust sdk runtime_plugins 字段为私有，不可变更，提 issue
 
 
 flamegraph -o flamegraph_00.svg --pid  10073
 
 修改建议
-为 UploadPartInputBuilder、PutObject、GetObjectInputBuilder 新增 set_payload_override， 以便使用aws_sigv4::http_request::SignableBody改变对象传递时频繁调用sigv4造成cpu使用率过高的问题
+为 UploadPartInputBuilder、PutObject、GetObjectInputBuilder 新增 set_payload_override，以便使用 aws_sigv4::http_request::SignableBody 改变对象传递时频繁调用 sigv4 造成 cpu 使用率过高的问题
 
 ```
       let payload_override = aws_sigv4::http_request::SignableBody::UnsignedPayload;
@@ -285,9 +285,9 @@ flamegraph -o flamegraph_01.svg --pid 2017221
 Duration { seconds: 2524, nanoseconds: 680871254 }
 
 
-## 使用 /etc/hosts 绑定，部分api不可用
+## 使用 /etc/hosts 绑定，部分 api 不可用
 
-当使用 /etc/hosts 进行绑定时，部分api 报错，这里分别验证了list_buckets，list_objects_v2,get_object
+当使用 /etc/hosts 进行绑定时，部分 api 报错，这里分别验证了 list_buckets，list_objects_v2,get_object
 
 ```rust
 #[tokio::main]
@@ -334,7 +334,7 @@ async fn main() {
 }
 ```
 
-此时关闭DNS，/etc/hosts 配置
+此时关闭 DNS，/etc/hosts 配置
 ```
 ip xxx.cn-north-1.xxx.com
 ```
@@ -486,7 +486,7 @@ obj: Err(
 )
 ```
 
-某些api只通过解析DNS而不能通过 /etc/hosts 绑定域名吗
+某些 api 只通过解析 DNS 而不能通过 /etc/hosts 绑定域名吗
 
 解决办法：通过 set force_path_style(true) 解决问题
 
@@ -500,10 +500,10 @@ Caused by:
     2: Error { code: "NotImplemented", message: "A header you provided implies x-amz-trailer operation which is not implemented" } RecordOption { source_key: "512k/!%X1727344854604616419", target_key: "512k/!%X1727344854604616419", list_file_path: "/tmp/meta_dir/transfer_objects_list_1743387599", list_file_position: FilePosition { offset: 5331, line_num: 192 }, option: PUT }
 ```
 - 原因
-  aws sdk 升级后部分server端api没有及时升级
+  aws sdk 升级后部分 server 端 api 没有及时升级
 
 - 临时解决方案
-  将aws sdk rust 版本进行回退
+  将 aws sdk rust 版本进行回退
 
   ```
   cd aws-sdk-rust

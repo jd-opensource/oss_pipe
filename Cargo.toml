@@ -1,13 +1,15 @@
 [package]
-name = "oss_pipe"
+name = "oss-pipe"
 version = "0.2.2"
 edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/jd-opensource/oss_pipe"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0.93"
-tokio = { version = "1.45.1", features = ["full", "tracing"] }
+tokio = { version = "1.45.1", features = ["full"] }
 clap = "4.5.40"
 rustyline = "16.0.0"
 rustyline-derive = "0.11.1"

@@ -3,12 +3,12 @@
 项目地址
 <https://github.com/jiashiwen/oss_pipe>
 
-oss_pipe 是rust编写的文件迁移工具，旨在支撑大规模的文件迁移场景。相比java 或 golang 构建的同类型产品，借助rust语言的优势，oss_pipe具备无GC、高并发、部署便利、OOM风险低等优势。
+oss_pipe 是 rust 编写的文件迁移工具，旨在支撑大规模的文件迁移场景。相比 java 或 golang 构建的同类型产品，借助 rust 语言的优势，oss_pipe 具备无 GC、高并发、部署便利、OOM 风险低等优势。
 
 ## 主要功能
 
 ### transfer 
-文件迁移，包括oss 间文件迁移和本地到oss的文件迁移
+文件迁移，包括 oss 间文件迁移和本地到 oss 的文件迁移
 
 * 主要功能
   * 全量迁移
@@ -24,7 +24,7 @@ oss_pipe 是rust编写的文件迁移工具，旨在支撑大规模的文件迁�
   * 阿里云对象存储
   * 腾讯云对象存储
   * 华为云对象存储
-  * AWS对象存储
+  * AWS 对象存储
   * Minio
   * 本地
 
@@ -34,7 +34,7 @@ oss_pipe 是rust编写的文件迁移工具，旨在支撑大规模的文件迁�
 * 主要功能
   * 存在性校验
   * 文件长度校验
-  * meta数据校验
+  * meta 数据校验
   * 过期时间校验
   * 全字节流校验
 
@@ -42,7 +42,7 @@ oss_pipe 是rust编写的文件迁移工具，旨在支撑大规模的文件迁�
 
 ### How to build
 
-* 安装rust编译环境
+* 安装 rust 编译环境
 
 ```rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -130,7 +130,7 @@ task_desc:
       timestamp: 1703055338
 ```
 
-修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版,模板描述请参考[参考手册](reference_cn.md)。parameters 支持参数查询，包括支持的provider 以及 任务类型
+修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版，模板描述请参考[参考手册](reference_cn.md)。parameters 支持参数查询，包括支持的 provider 以及 任务类型
 
 #### 执行任务
 
@@ -147,7 +147,7 @@ oss_pipe task exec filepath/task.yml
 oss_pipe 同时支持命令行模式和交互模式 oss_pipe -i 进入交互模式。交互模式使用'tab'键进行子命令提示。
 
 * osstask  
-  通过yaml描述文件执行相关任务
+  通过 yaml 描述文件执行相关任务
   * 命令格式
   
     ```shell
@@ -167,7 +167,7 @@ oss_pipe 同时支持命令行模式和交互模式 oss_pipe -i 进入交互模�
     ```
 
 * template  
-  生成任务模板,通过子命令指定任务类型
+  生成任务模板，通过子命令指定任务类型
   * 命令格式
   
     ```shell
@@ -238,7 +238,7 @@ oss_pipe 同时支持命令行模式和交互模式 oss_pipe -i 进入交互模�
 ##### oss2local
 
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7132612445025210369'
 # 任务名称，非必填
 name: transfer oss to local
@@ -295,7 +295,7 @@ task_desc:
 ##### oss2oss
 
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7132566496848515073'
 # 任务名称，非必填  
 name: transfer oss to oss
@@ -367,7 +367,7 @@ task_desc:
 ##### local2oss
   
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7132614104178626561'
 # 任务名称，非必填  
 name: transfer local to oss
@@ -424,7 +424,7 @@ task_desc:
 #### local2local
   
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7132615010349617153'
 # 任务名称，非必填  
 name: transfer local to local
@@ -465,7 +465,7 @@ task_desc:
 #### TruncateBucket  
   
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7064088180835880961'
 # 任务名称，非必填  
 name: truncate bucket task
@@ -501,7 +501,7 @@ task_desc:
 #### OssCompare
   
 ```yml
-# 任务id，非必填
+# 任务 id，非必填
 task_id: '7064090414587973633'
 # 任务名称，非必填  
 name: oss compare task

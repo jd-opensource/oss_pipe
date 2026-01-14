@@ -18,7 +18,7 @@ use std::time::Duration;
 pub trait OSSActions {
     fn oss_client_type(&self) -> OssProvider;
 
-    // 按批次获取对象列表，token为next token
+    // 按批次获取对象列表，token 为 next token
     async fn list_objects(
         &self,
         bucket: String,
@@ -69,10 +69,10 @@ pub trait OSSActions {
         file_path: String,
     ) -> Result<()>;
 
-    // 获取object字节
+    // 获取 object 字节
     async fn get_object_bytes(&self, bucket: &str, key: &str) -> Result<Bytes>;
 
-    // 上传object字节
+    // 上传 object 字节
     async fn upload_object_bytes(&self, bucket: &str, key: &str, content: Bytes) -> Result<()>;
 }
 

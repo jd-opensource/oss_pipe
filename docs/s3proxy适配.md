@@ -14,7 +14,7 @@ jclouds.provider=filesystem
 jclouds.filesystem.basedir=/root/s3proxy_store
 ```
 target/s3proxy --properties s3proxy.conf
-创建bucket
+创建 bucket
 ```
 curl --request PUT http://localhost:8080/testbucket
 ```
@@ -65,7 +65,7 @@ jclouds.endpoint=https://account.blob.core.windows.net
 mc
 az storage blob list --account-key xxxxxxxxx --account-name xxxx --container-name xxxx
 
-上传下载通过，与s3交互和大文件分片待测试
+上传下载通过，与 s3 交互和大文件分片待测试
 
 ## oss_pipe 配置示例
 

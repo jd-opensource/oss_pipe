@@ -107,12 +107,12 @@ pub struct TransferTaskAttributes {
     /// 是否从检查点开始执行
     #[serde(default = "TaskDefaultParameters::start_from_checkpoint_default")]
     pub start_from_checkpoint: bool,
-    /// 大文件大小阈值(字节)
+    /// 大文件大小阈值 (字节)
     #[serde(default = "TaskDefaultParameters::large_file_size_default")]
     #[serde(serialize_with = "se_usize_to_str")]
     #[serde(deserialize_with = "de_usize_from_str")]
     pub large_file_size: usize,
-    /// 分片上传的块大小(字节)
+    /// 分片上传的块大小 (字节)
     #[serde(default = "TaskDefaultParameters::multi_part_chunk_size_default")]
     #[serde(serialize_with = "se_usize_to_str")]
     #[serde(deserialize_with = "de_usize_from_str")]
@@ -132,7 +132,7 @@ pub struct TransferTaskAttributes {
     /// 包含的文件/对象匹配模式列表
     #[serde(default = "TaskDefaultParameters::filter_default")]
     pub include: Option<Vec<String>>,
-    /// 传输类型: 全量/存量   Full,Stock
+    /// 传输类型：全量/存量   Full,Stock
     #[serde(default = "TaskDefaultParameters::transfer_type_default")]
     pub transfer_type: TransferType,
     /// 最后修改时间过滤器配置
@@ -147,7 +147,7 @@ pub struct TransferTaskAttributes {
     /// 手动指定列表文件
     #[serde(default = "TaskDefaultParameters::objects_list_files_default")]
     pub objects_list_files: Option<Vec<String>>,
-    /// 增量模式：scan 或 notify，文件系统支持notify模式，源端为对象存在只支持 scan 模式，当文件系统为共享存储，例如 nfs时使用 scan模式
+    /// 增量模式：scan 或 notify，文件系统支持 notify 模式，源端为对象存在只支持 scan 模式，当文件系统为共享存储，例如 nfs 时使用 scan 模式
     #[serde(default = "TaskDefaultParameters::increment_mode_default")]
     pub increment_mode: IncrementMode,
 }

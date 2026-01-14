@@ -43,17 +43,17 @@ use walkdir::WalkDir;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "lowercase")]
-// 定义一个结构体TransferOss2Oss，用于描述从OSS到OSS的传输任务
+// 定义一个结构体 TransferOss2Oss，用于描述从 OSS 到 OSS 的传输任务
 pub struct TransferOss2Oss {
-    // 任务ID，默认值为TaskDefaultParameters::id_default()
+    // 任务 ID，默认值为 TaskDefaultParameters::id_default()
     #[serde(default = "TaskDefaultParameters::id_default")]
     pub task_id: String,
-    // 任务名称，默认值为TaskDefaultParameters::name_default()
+    // 任务名称，默认值为 TaskDefaultParameters::name_default()
     #[serde(default = "TaskDefaultParameters::name_default")]
     pub name: String,
-    // 源OSS描述
+    // 源 OSS 描述
     pub source: OSSDescription,
-    // 目标OSS描述
+    // 目标 OSS 描述
     pub target: OSSDescription,
     // 传输任务属性
     pub attributes: TransferTaskAttributes,
@@ -250,7 +250,7 @@ impl TransferTaskActions for TransferOss2Oss {
             IncrementMode::Scan { interval } => interval,
             _ => 3600,
         };
-        // 循环执行获取lastmodify 大于checkpoint指定的时间戳的对象
+        // 循环执行获取 lastmodify 大于 checkpoint 指定的时间戳的对象
         let mut checkpoint = match get_task_checkpoint(checkpoint_path) {
             Ok(c) => c,
             Err(e) => {
@@ -300,7 +300,7 @@ impl TransferTaskActions for TransferOss2Oss {
                 }
             };
 
-            // 按列表传输object from source to target
+            // 按列表传输 object from source to target
             let lines: io::Lines<io::BufReader<File>> = io::BufReader::new(modified_file).lines();
             for (idx, line) in lines.enumerate() {
                 if let Result::Ok(line_str) = line {
@@ -347,7 +347,7 @@ impl TransferTaskActions for TransferOss2Oss {
                         let _ = executor.transfer_record_options(vk).await;
                     });
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -394,7 +394,7 @@ impl TransferTaskActions for TransferOss2Oss {
 }
 
 impl TransferOss2Oss {
-    // 获取source端变更的objects,时间戳大于等于上次抓取的时间戳
+    // 获取 source 端变更的 objects，时间戳大于等于上次抓取的时间戳
     async fn capture_modified_objects_to_file(
         &self,
         last_capture_timestamp: usize,
@@ -416,7 +416,7 @@ impl TransferOss2Oss {
 
         let source_client = self.source.gen_oss_client()?;
 
-        // 筛选源对象，lastmodify大于等于时间戳并转换为RecordDescription格式
+        // 筛选源对象，lastmodify 大于等于时间戳并转换为 RecordDescription 格式
         let mut persist_modified_objects = |source_objects: Vec<Object>| -> Result<()> {
             for obj in source_objects {
                 if let Some(source_key) = obj.key() {
@@ -600,7 +600,7 @@ struct TransferOss2OssRecordsExecutor {
 #[async_trait]
 impl TransferExecutor for TransferOss2OssRecordsExecutor {
     async fn transfer_listed_records(&self, records: Vec<ListedRecord>) -> Result<()> {
-        // ToDo 待修改其他模块，统一subffix的取值规则
+        // ToDo 待修改其他模块，统一 subffix 的取值规则
         let mut offset_key = OFFSET_PREFIX.to_string();
         let subffix = records[0].file_num.to_string() + "_" + &records[0].offset.to_string();
         offset_key.push_str(&subffix);
@@ -771,7 +771,7 @@ impl TransferExecutor for TransferOss2OssRecordsExecutor {
 
 impl TransferOss2OssRecordsExecutor {
     //Todo
-    // 尝试 source_oss、target_oss 参数 使用Arc<Client>
+    // 尝试 source_oss、target_oss 参数 使用 Arc<Client>
     async fn listed_record_handler(
         &self,
         record: &ListedRecord,
@@ -798,7 +798,7 @@ impl TransferOss2OssRecordsExecutor {
             }
         };
 
-        // 目标object存在则不推送
+        // 目标 object 存在则不推送
         if self.attributes.target_exists_skip {
             let target_obj_exists = target_oss
                 .object_exists(self.target.bucket.as_str(), target_key)
@@ -863,7 +863,7 @@ impl TransferOss2OssRecordsExecutor {
         target_oss: &Arc<OssClient>,
         record: &RecordOption,
     ) -> Result<()> {
-        // 目标object存在则不推送
+        // 目标 object 存在则不推送
         if self.attributes.target_exists_skip {
             match target_oss
                 .object_exists(self.target.bucket.as_str(), &record.target_key)

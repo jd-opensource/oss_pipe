@@ -72,7 +72,7 @@ pub fn run_from(args: Vec<String>) {
     };
 }
 
-// 获取全部子命令，用于构建commandcompleter
+// 获取全部子命令，用于构建 commandcompleter
 pub fn all_subcommand(app: &Clap_Command, beginlevel: usize, input: &mut Vec<SubCmd>) {
     let nextlevel = beginlevel + 1;
     let mut subcmds = vec![];

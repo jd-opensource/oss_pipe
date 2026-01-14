@@ -40,7 +40,7 @@ use tokio::{
     task::JoinSet,
 };
 
-/// Object分片范围
+/// Object 分片范围
 #[derive(Debug, Clone)]
 pub struct ObjectRange {
     /// 分片号
@@ -51,7 +51,7 @@ pub struct ObjectRange {
     pub end: usize,
 }
 
-//Todo 尝试修改为Arc::<Client>
+//Todo 尝试修改为 Arc::<Client>
 #[derive(Debug, Clone)]
 pub struct OssClient {
     pub client: Client,
@@ -79,7 +79,7 @@ impl OssClient {
     ) -> Result<Vec<FileDescription>> {
         let mut file_num = 0;
 
-        // 创建序列文件，用于存储object_list 文件列表，以此文件为顺序遍历所有object 文件
+        // 创建序列文件，用于存储 object_list 文件列表，以此文件为顺序遍历所有 object 文件
         let sequence_file_name = gen_file_path(meta_dir, OBJECTS_SEQUENCE_FILE, "");
         let sequence_file_builder = FileOperationBuilder::new(&sequence_file_name)
             .with_append_mode()
@@ -600,7 +600,7 @@ impl OssClient {
             }
         };
 
-        //分段上传文件并记录completer_part
+        //分段上传文件并记录 completer_part
         loop {
             let mut buf = vec![0; chuck_size];
             let read_count = file.read(&mut buf)?;
@@ -755,7 +755,7 @@ impl OssClient {
         Ok(complete_multi_part_upload_output)
     }
 
-    //Todo 增加client:Arc<Client> 参数，修改self.client.clone();在上一层生成Arc<Client>
+    //Todo 增加 client:Arc<Client> 参数，修改 self.client.clone();在上一层生成 Arc<Client>
     // Arc::clone 更改为 变量.clone()
     pub async fn upload_file_parts(
         &self,
@@ -1382,12 +1382,12 @@ pub async fn fill_parts_to_file_batch_by_range(
     Ok(())
 }
 
-// 生成 range 字符串，用于oss range下载
+// 生成 range 字符串，用于 oss range 下载
 pub fn gen_range_string(begin: usize, end: usize) -> String {
     format!("bytes={}-{}", begin, end)
 }
 
-// 返回当前file_num
+// 返回当前 file_num
 fn append_objects_key_to_multifiles(
     objects: Vec<Object>,
     sequence_file_writer: &mut LineWriter<File>,
@@ -1399,7 +1399,7 @@ fn append_objects_key_to_multifiles(
 ) -> Result<i32> {
     let mut file_num = current_file_num;
 
-    // 创建object list 文件
+    // 创建 object list 文件
     let gen_input_file_name = |file_num: i32| -> String {
         let mut file_subfix = "".to_string();
         file_subfix.push_str(&file_num.to_string());
@@ -1414,7 +1414,7 @@ fn append_objects_key_to_multifiles(
         false => count_file_lines(&input_file_name).context(format!("{}:{}", file!(), line!()))?,
     };
 
-    // 写入sequence file
+    // 写入 sequence file
     let mut write_sequence_file = |file_num: i32| -> Result<(), std::io::Error> {
         let input_file_name = gen_input_file_name(file_num);
         sequence_file_writer.write_all(input_file_name.as_bytes())?;

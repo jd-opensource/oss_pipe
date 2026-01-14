@@ -46,7 +46,7 @@ impl FileDescription {
 
 #[derive(Debug, Serialize, Deserialize, Clone, Copy)]
 pub struct FilePosition {
-    // 文件编码，可以根据文件编码找到sequenc_file 中对应的文件名作为，如果数值为负数则在checkpoint中不变更当前文件，当前文件为增量文件，执行增量逻辑
+    // 文件编码，可以根据文件编码找到 sequenc_file 中对应的文件名作为，如果数值为负数则在 checkpoint 中不变更当前文件，当前文件为增量文件，执行增量逻辑
     pub file_num: i32,
     pub offset: usize,
     pub line_num: u64,
@@ -66,9 +66,9 @@ impl Default for FilePosition {
 pub struct CheckPoint {
     pub task_id: String,
     //当前全量对象列表
-    // 对象列表命名规则：OBJECT_LIST_FILE_PREFIX+秒级unix 时间戳 'objeclt_list_unixtimestampe'
+    // 对象列表命名规则：OBJECT_LIST_FILE_PREFIX+ 秒级 unix 时间戳 'objeclt_list_unixtimestampe'
     pub executing_file: FileDescription,
-    // 文件执行位置，既执行到的offset，用于断点续传
+    // 文件执行位置，既执行到的 offset，用于断点续传
     pub executing_file_position: FilePosition,
     pub file_for_notify: Option<String>,
     pub task_stage: TaskStage,

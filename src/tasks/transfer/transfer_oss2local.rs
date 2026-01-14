@@ -43,10 +43,10 @@ use walkdir::WalkDir;
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "lowercase")]
 pub struct TransferOss2Local {
-    // 任务ID，默认值为TaskDefaultParameters::id_default()
+    // 任务 ID，默认值为 TaskDefaultParameters::id_default()
     #[serde(default = "TaskDefaultParameters::id_default")]
     pub task_id: String,
-    // 任务名称，默认值为TaskDefaultParameters::name_default()
+    // 任务名称，默认值为 TaskDefaultParameters::name_default()
     #[serde(default = "TaskDefaultParameters::name_default")]
     pub name: String,
 
@@ -234,7 +234,7 @@ impl TransferTaskActions for TransferOss2Local {
             IncrementMode::Scan { interval } => interval,
             _ => 3600,
         };
-        // 循环执行获取lastmodify 大于checkpoint指定的时间戳的对象
+        // 循环执行获取 lastmodify 大于 checkpoint 指定的时间戳的对象
         let mut checkpoint = match get_task_checkpoint(checkpoint_path) {
             Ok(c) => c,
             Err(e) => {
@@ -285,7 +285,7 @@ impl TransferTaskActions for TransferOss2Local {
                 }
             };
 
-            // 按列表传输object from source to target
+            // 按列表传输 object from source to target
             let lines: io::Lines<io::BufReader<File>> = io::BufReader::new(modified_file).lines();
             for line in lines {
                 if let Result::Ok(line_str) = line {
@@ -328,7 +328,7 @@ impl TransferTaskActions for TransferOss2Local {
                     );
                     let _ = executor.transfer_record_options(vk).await;
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -398,7 +398,7 @@ impl TransferOss2Local {
 
         let source_client = self.source.gen_oss_client()?;
 
-        // 筛选源对象，lastmodify大于等于时间戳并转换为RecordDescription格式
+        // 筛选源对象，lastmodify 大于等于时间戳并转换为 RecordDescription 格式
         let mut persist_modified_objects = |objects: Vec<Object>| -> Result<()> {
             for obj in objects {
                 if let Some(source_key) = obj.key() {
@@ -526,7 +526,7 @@ struct TransferOss2LocalRecordsExecutor {
 #[async_trait]
 impl TransferExecutor for TransferOss2LocalRecordsExecutor {
     async fn transfer_listed_records(&self, records: Vec<ListedRecord>) -> Result<()> {
-        // ToDo 待修改其他模块，统一subffix的取值规则
+        // ToDo 待修改其他模块，统一 subffix 的取值规则
         let mut offset_key = OFFSET_PREFIX.to_string();
         let subffix = records[0].file_num.to_string() + "_" + &records[0].offset.to_string();
         offset_key.push_str(&subffix);
@@ -633,7 +633,7 @@ impl TransferExecutor for TransferOss2LocalRecordsExecutor {
                 std::fs::create_dir_all(p)?
             };
 
-            // 目标object存在则不推送
+            // 目标 object 存在则不推送
             if self.attributes.target_exists_skip {
                 if t_path.exists() {
                     continue;
@@ -686,7 +686,7 @@ impl TransferOss2LocalRecordsExecutor {
             std::fs::create_dir_all(p)?;
         };
 
-        // 目标object存在则不下载
+        // 目标 object 存在则不下载
         if self.attributes.target_exists_skip {
             if t_path.exists() {
                 return Ok(());

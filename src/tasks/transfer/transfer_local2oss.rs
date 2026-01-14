@@ -426,7 +426,7 @@ impl TransferLocal2Oss {
                                 target_key: "".to_string(),
                                 list_file_path: file_for_notify.clone(),
                                 list_file_position: FilePosition {
-                                    // Todo 对代码了解后调整file_num的值
+                                    // Todo 对代码了解后调整 file_num 的值
                                     file_num: -1,
                                     offset: offset_usize,
                                     line_num,
@@ -478,7 +478,7 @@ impl TransferLocal2Oss {
             offset = count_file_bytes(&file_for_notify)?;
             let offset_usize = TryInto::<usize>::try_into(offset).unwrap();
             let position = FilePosition {
-                //Todo 待了解业务逻辑后调整file_num
+                //Todo 待了解业务逻辑后调整 file_num
                 file_num: -1,
                 offset: offset_usize,
                 line_num,
@@ -493,7 +493,7 @@ impl TransferLocal2Oss {
         Ok(())
     }
 
-    // 上层函数追踪到错误实现错误处理将stop_mark、err_occur 转为true
+    // 上层函数追踪到错误实现错误处理将 stop_mark、err_occur 转为 true
     async fn increment_scan(
         &self,
         execute_set: &mut JoinSet<()>,
@@ -504,7 +504,7 @@ impl TransferLocal2Oss {
         checkpoint_path: &str,
         interval: u64,
     ) -> Result<()> {
-        // 循环执行获取lastmodify 大于checkpoint指定的时间戳的对象
+        // 循环执行获取 lastmodify 大于 checkpoint 指定的时间戳的对象
         let mut checkpoint = match get_task_checkpoint(checkpoint_path) {
             Ok(c) => c,
             Err(e) => {
@@ -539,7 +539,7 @@ impl TransferLocal2Oss {
             let modified_file =
                 File::open(&modified.path).context(format!("{}:{}", file!(), line!()))?;
 
-            // 按列表传输object from source to target
+            // 按列表传输 object from source to target
             let lines: io::Lines<io::BufReader<File>> = io::BufReader::new(modified_file).lines();
             for (idx, line) in lines.enumerate() {
                 if let Result::Ok(line_str) = line {
@@ -582,7 +582,7 @@ impl TransferLocal2Oss {
                         let _ = executor.transfer_record_options(vk).await;
                     });
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -788,7 +788,7 @@ impl TransferLocal2Oss {
             false => target_path.drain(..self.source.len() + 1),
         };
 
-        // 补全prefix
+        // 补全 prefix
         if let Some(mut oss_path) = self.target.prefix.clone() {
             match oss_path.ends_with("/") {
                 true => target_path.insert_str(0, &oss_path),
@@ -807,7 +807,7 @@ impl TransferLocal2Oss {
                         target_key: target_path,
                         list_file_path: list_file_path.to_string(),
                         list_file_position: FilePosition {
-                            //Todo 待了解业务逻辑后调整file_num
+                            //Todo 待了解业务逻辑后调整 file_num
                             file_num: -1,
                             offset,
                             line_num,
@@ -822,7 +822,7 @@ impl TransferLocal2Oss {
                         target_key: target_path,
                         list_file_path: list_file_path.to_string(),
                         list_file_position: FilePosition {
-                            //Todo 待了解业务逻辑后调整file_num
+                            //Todo 待了解业务逻辑后调整 file_num
                             file_num: -1,
                             offset,
                             line_num,
@@ -863,13 +863,13 @@ struct TransferLocal2OssExecuter {
 #[async_trait]
 impl TransferExecutor for TransferLocal2OssExecuter {
     async fn transfer_listed_records(&self, records: Vec<ListedRecord>) -> Result<()> {
-        // ToDo 待修改其他模块，统一subffix的取值规则
+        // ToDo 待修改其他模块，统一 subffix 的取值规则
         let mut offset_key = OFFSET_PREFIX.to_string();
         let subffix = records[0].file_num.to_string() + "_" + &records[0].offset.to_string();
         offset_key.push_str(&subffix);
 
         // Todo
-        // 若第一行出错则整组record写入错误记录，若错误记录文件打开报错则停止任务
+        // 若第一行出错则整组 record 写入错误记录，若错误记录文件打开报错则停止任务
         let error_file_name = gen_file_path(
             &self.attributes.meta_dir,
             TRANSFER_ERROR_RECORD_PREFIX,
@@ -1003,14 +1003,14 @@ impl TransferExecutor for TransferLocal2OssExecuter {
         let c_t = self.target.gen_oss_client()?;
 
         // Todo
-        // 增加去重逻辑，当两条记录相邻为 create和modif时只put一次
-        // 增加目录删除逻辑，对应oss删除指定prefix下的所有文件，文件系统删除目录
+        // 增加去重逻辑，当两条记录相邻为 create 和 modif 时只 put 一次
+        // 增加目录删除逻辑，对应 oss 删除指定 prefix 下的所有文件，文件系统删除目录
         for record in records {
             // 记录执行文件位置
             self.offset_map
                 .insert(offset_key.clone(), record.list_file_position.clone());
 
-            // 目标object存在则不推送
+            // 目标 object 存在则不推送
             if self.attributes.target_exists_skip {
                 match c_t
                     .object_exists(self.target.bucket.as_str(), &record.target_key)
@@ -1108,7 +1108,7 @@ impl TransferLocal2OssExecuter {
             return Ok(());
         }
 
-        // 目标object存在则不推送
+        // 目标 object 存在则不推送
         if self.attributes.target_exists_skip {
             let target_obj_exists = target_oss
                 .object_exists(self.target.bucket.as_str(), target_key)
@@ -1120,7 +1120,7 @@ impl TransferLocal2OssExecuter {
         }
 
         // ToDo
-        // 新增阐述chunk_batch 定义分片上传每批上传分片的数量
+        // 新增阐述 chunk_batch 定义分片上传每批上传分片的数量
         target_oss
             .upload_local_file_paralle(
                 source_file,

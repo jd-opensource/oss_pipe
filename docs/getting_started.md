@@ -2,7 +2,7 @@
 
 ## How to build
 
-* 安装rust编译环境
+* 安装 rust 编译环境
 
 ```rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -126,7 +126,7 @@ attributes:
   multi_part_parallelism: 22
 ```
 
-修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版,模板描述请参考[参考手册](reference_task_yml_cn.md)。parameters 支持参数查询，包括支持的provider 以及 任务类型
+修改 access_key_id secret_access_key 等参数，适配自己的任务。template 命令按照任务类型创建模版，模板描述请参考[参考手册](reference_task_yml_cn.md)。parameters 支持参数查询，包括支持的 provider 以及 任务类型
 
 ### 执行任务
 

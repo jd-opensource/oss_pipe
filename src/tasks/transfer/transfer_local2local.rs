@@ -41,12 +41,12 @@ use walkdir::WalkDir;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "lowercase")]
-// 定义一个结构体TransferLocal2Local，用于表示本地到本地的传输任务
+// 定义一个结构体 TransferLocal2Local，用于表示本地到本地的传输任务
 pub struct TransferLocal2Local {
-    // 任务ID，默认值为TaskDefaultParameters::id_default()
+    // 任务 ID，默认值为 TaskDefaultParameters::id_default()
     #[serde(default = "TaskDefaultParameters::id_default")]
     pub task_id: String,
-    // 任务名称，默认值为TaskDefaultParameters::name_default()
+    // 任务名称，默认值为 TaskDefaultParameters::name_default()
     #[serde(default = "TaskDefaultParameters::name_default")]
     pub name: String,
     // 源文件路径
@@ -74,7 +74,7 @@ impl TransferTaskActions for TransferLocal2Local {
         stop_mark: Arc<AtomicBool>,
         _semaphore: Arc<Semaphore>,
     ) -> Result<()> {
-        // 遍历meta dir 执行所有err开头文件
+        // 遍历 meta dir 执行所有 err 开头文件
         for entry in WalkDir::new(self.attributes.meta_dir.as_str())
             .into_iter()
             .filter_map(Result::ok)
@@ -164,7 +164,7 @@ impl TransferTaskActions for TransferLocal2Local {
         timestamp: usize,
     ) -> Result<FileDescription> {
         let now = SystemTime::now().duration_since(UNIX_EPOCH)?;
-        // 获取target object 列表 和removed 列表
+        // 获取 target object 列表 和 removed 列表
         // 根据时间戳生成增量列表
         // 合并删除及新增列表
         let removed = gen_file_path(
@@ -668,7 +668,7 @@ impl TransferLocal2Local {
         // assistant: Arc<Mutex<IncrementAssistant>>,
         interval: u64,
     ) -> Result<()> {
-        // 循环执行获取lastmodify 大于checkpoint指定的时间戳的对象
+        // 循环执行获取 lastmodify 大于 checkpoint 指定的时间戳的对象
         // let lock = assistant.lock().await;
         // let checkpoint_path = lock.check_point_path.clone();
         // let mut checkpoint = match get_task_checkpoint(&lock.check_point_path) {
@@ -719,7 +719,7 @@ impl TransferLocal2Local {
             let modified_file =
                 File::open(&modified.path).context(format!("{}:{}", file!(), line!()))?;
 
-            // 按列表传输object from source to target
+            // 按列表传输 object from source to target
             let lines: io::Lines<io::BufReader<File>> = io::BufReader::new(modified_file).lines();
             for (idx, line) in lines.enumerate() {
                 if let Result::Ok(line_str) = line {
@@ -770,7 +770,7 @@ impl TransferLocal2Local {
                         let _ = executor.transfer_record_options(vk).await;
                     });
 
-                    // 清理临时key vec
+                    // 清理临时 key vec
                     vec_keys.clear();
                 }
             }
@@ -948,7 +948,7 @@ impl TransferLocal2Local {
                         source_key: modified.path.clone(),
                         target_key: target_path,
                         list_file_path: list_file_path.to_string(),
-                        // Todo 理解该函数的使用场景后重新对file_num取相关值
+                        // Todo 理解该函数的使用场景后重新对 file_num 取相关值
                         list_file_position: FilePosition {
                             file_num: -1,
                             offset,
@@ -963,7 +963,7 @@ impl TransferLocal2Local {
                         source_key: modified.path.clone(),
                         target_key: target_path,
                         list_file_path: list_file_path.to_string(),
-                        // Todo 理解该函数的使用场景后重新对file_num取相关值
+                        // Todo 理解该函数的使用场景后重新对 file_num 取相关值
                         list_file_position: FilePosition {
                             file_num: -1,
                             offset,
@@ -1168,7 +1168,7 @@ impl TransferLocal2LocalExecutor {
         //     std::fs::create_dir_all(p)?
         // };
 
-        // 目标object存在则不推送
+        // 目标 object 存在则不推送
         if self.attributes.target_exists_skip {
             if t_path.exists() {
                 return Ok(());
